@@ -109,6 +109,14 @@ q {
 	animation: glow_anime_on 1s ease-out forwards;
 }
 
+.js-post__works{
+	display: none;
+}
+
+.js-post__works.is-active{
+	display: block;
+}
+
 body {
 	font-family: "M PLUS 1p", serif;
 	font-size: 16px;

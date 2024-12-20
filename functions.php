@@ -14,16 +14,5 @@ function my_setup() {
     }
     add_action("after_setup_theme", "my_setup");
 
-// デフォルトの投稿の一覧ページリンク取得でget_post_type_archive_linkが使えるようにする
-function post_has_archive( $args, $post_type ) {
-	if ( 'post' == $post_type ) {
-		$args['rewrite'] = true;
-		$args['has_archive'] = 'all';
-	}
-	return $args;
-}
-add_filter( 'register_post_type_args', 'post_has_archive', 10, 2 );
-
-?>
 
 

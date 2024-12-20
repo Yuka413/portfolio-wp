@@ -111,7 +111,7 @@
                     </p>
                   </div>
                 </a>
-                <a href="" class="c-button">
+                <a href="<?php echo get_post_type_archive_link('works'); ?>" class="c-button">
                   <p class="c-button__text">制作実績をすべて見る</p>
                 </a>
               </div>
@@ -238,7 +238,7 @@
                     <div class="p-skills__swiper-card-category">Github</div>
                   </div>
                   <p class="p-skills__swiper-card-description">
-                    現場での複数人でのサイト実装の環境にすぐ入り込めるように、普段のコーディング練習でもGithubで管理をしています。
+                    現場での複数人でのサイト実装の環境にすぐ入り込めるように、普段のコーディングでもGithubで管理をしています。
                   </p>
                 </div>
               </div>
@@ -263,16 +263,16 @@
           </div>
           <div class="p-works__cards">
                 <?php $args = array(
-                    'post__in' => array(10, 31, 33),
-                    'post_type' => 'post',
+                    'post__in' => array(41, 43, 40),
+                    'post_type' => 'works',
                     'posts_per_page' => 3,
-                    'order' =>'ASC',
+                    'orderby' =>'post__in',
                 );
                 $works_query = new WP_Query($args);?>
                 <?php if ($works_query->have_posts()): ?>
                 <?php while($works_query->have_posts()): ?>
                 <?php $works_query->the_post(); ?>
-            <a class="p-works__card">
+            <a href="<?php echo get_post_permalink(); ?>" class="p-works__card">
               <div class="p-works__card-wrapper">
                 <div class="c-card">
                     <?php $circle_image= get_field('circle-image');?>
@@ -290,28 +290,23 @@
                 <p class="p-works__card-title">
                   <?php the_title();?>
                 </p>
-                <?php
-                    $categories = get_the_category();
-                    if (!empty($categories)) {
-                        // カテゴリー名を配列に格納
-                        $category_names = array_map(function($category) {
-                            return esc_html($category->name); // エスケープ処理
-                        }, $categories);
-
-                        // カテゴリー名をスラッシュで結合
-                        $category_list = implode(' / ', $category_names);
-
-                        // 表示
-                        echo '<p class="p-works__card-caption">' . $category_list . '</p>';
-                    } ?>
-                <p class="p-works__card-caption">制作時間：<?php echo get_the_excerpt(); ?></p>
+                  <?php $terms = get_the_terms(get_the_ID(), 'skill'); ?>
+                  <?php if (!empty($terms) && !is_wp_error($terms)) {
+                    $term_names = array_map(function($term) {
+                        return $term->name;
+                    }, $terms);
+                    $term_names_string = implode(' / ', $term_names);
+                    echo '<p class="p-works__card-caption">' . $term_names_string . '</p>';
+                }
+                ?>
+              <p class="p-works__card-caption">制作時間：<?php echo get_field('time'); ?></p>
               </div>
             </a>
                 <?php endwhile; ?>
                 <?php endif; ?>
           </div>
           <div class="p-works__button-wrapper">
-            <a href="<?php echo get_post_type_archive_link('/'); ?>all" class="c-button"> すべて見る </a>
+            <a href="<?php echo get_post_type_archive_link('works'); ?>" class="c-button"> すべて見る </a>
           </div>
         </div>
       </section>

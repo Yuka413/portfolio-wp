@@ -1,1 +1,159 @@
-<?php echo 'single'; ?>
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex" />
+    <title>Yuka's Portfolio</title>
+
+    <!-- google fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=M+PLUS+1p&family=Noto+Sans+JP:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- favicon -->
+    <link
+      rel="shortcut icon"
+      href="<?php echo get_template_directory_uri(); ?>/img/favicon.png"
+      type="image/x-icon"
+    />
+
+    <!-- font-awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+    />
+
+    <!-- swiper -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+    />
+
+    <?php wp_head(); ?>
+  </head>
+  <body>
+    <!-- headerここから -->
+    <header class="l-header">
+      <div class="l-header__inner">
+        <a href="#" class="l-header__logo">
+          <img
+            src="<?php echo get_template_directory_uri(); ?>/img/logo.png"
+            alt="Yuka's Portfolio"
+            class="l-header__logo-image"
+          />
+        </a>
+        <button class="l-header__drawer">
+          <span class="l-header__drawer-icon-bar"></span>
+          <span class="l-header__drawer-icon-bar--short"></span>
+        </button>
+        <div class="l-header-drawer__content">
+          <ul class="l-header-drawer__content-lists">
+            <li class="l-header-drawer__content-list">
+              <a href="" class="l-header-drawer__content-link">Home</a>
+              <a href="" class="l-header-drawer__content-link-ja">ホーム</a>
+            </li>
+            <li class="l-header-drawer__content-list">
+              <a href="" class="l-header-drawer__content-link">About me</a>
+              <a href="" class="l-header-drawer__content-link-ja"
+                >わたしについて</a
+              >
+            </li>
+            <li class="l-header-drawer__content-list">
+              <a href="" class="l-header-drawer__content-link">Works</a>
+              <a href="" class="l-header-drawer__content-link-ja">制作実績</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </header>
+    <!-- headerここまで -->
+
+    <!-- 制作実績ここから -->
+    <section class="p-site">
+      <div class="p-site__inner u-inner">
+        <div class="p-site__mv fade-in-up">
+        <?php $mockup_image= get_field('mockup');?>
+          <img src="<?php echo $mockup_image['url']; ?>" alt="" />
+        </div>
+        <div class="p-site__body">
+          <h1 class="p-site__title"><?php the_title(); ?></h1>
+
+          <table class="p-site__table">
+            <tbody>
+              <tr>
+                <th>サイトURL</th>
+                <td><a href="" class="p-site__url">https:~~~~</a></td>
+              </tr>
+              <tr>
+                <th>使用スキル</th>
+                <td>
+                <?php $terms = get_the_terms(get_the_ID(), 'skill'); ?>
+                  <?php if (!empty($terms) && !is_wp_error($terms)) {
+                    $term_names = array_map(function($term) {
+                        return $term->name;
+                    }, $terms);
+                    $term_names_string = implode(' / ', $term_names);
+                    echo '<div class="c-skill-tag">' . $term_names_string . '</div>';
+                }
+                ?>
+                </td>
+              </tr>
+              <tr>
+                <th>制作時間</th>
+                <td><?php echo get_field('time'); ?></td>
+              </tr>
+              <tr>
+                <th>制作概要</th>
+                <td>
+                  <?php echo get_field('overview'); ?>
+                </td>
+              </tr>
+
+            </tbody>
+          </table>
+        </div>
+
+        <div class="p-site__button">
+          <a href="<?php echo get_post_type_archive_link('works'); ?>" class="c-button"> 制作実績一覧へ戻る </a>
+        </div>
+      </div>
+    </section>
+    <!-- 制作実績ここまで -->
+
+    <!-- footerここから -->
+    <div class="c-background__wave c-background__wave--reverse">
+      <footer class="l-footer">
+        <div class="l-footer__inner u-inner">
+          <div class="l-footer__contents">
+            <span class="l-footer__text">
+              ご覧いただき、<wbr />ありがとうございました！
+            </span>
+            <a href="#" class="l-footer__logo">
+              <img src="<?php echo get_template_directory_uri(); ?>/img/logo.png" alt="" />
+            </a>
+          </div>
+          <div class="l-footer__copyright">
+            <small class="l-footer__copyright-text"
+              >&copy;2024 Yuka's Portfolio</small
+            >
+            <a
+              href="https://x.com/__yukke48"
+              class="c-sns-x c-sns-x__small"
+              target="_blank"
+              >𝕏
+            </a>
+          </div>
+        </div>
+      </footer>
+    </div>
+    <!-- footerここまで -->
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <?php wp_footer(); ?>
+  </body>
+</html>

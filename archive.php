@@ -17,7 +17,7 @@
     <!-- favicon -->
     <link
       rel="shortcut icon"
-      href="../public/assets/img/favicon.png"
+      href="<?php echo get_template_directory_uri(); ?>/img/favicon.png"
       type="image/x-icon"
     />
 
@@ -40,7 +40,7 @@
       <div class="l-header__inner">
         <a href="#" class="l-header__logo">
           <img
-            src="../public/assets/img/logo.png"
+            src="<?php echo get_template_directory_uri(); ?>/img/logo.png"
             alt="Yuka's Portfolio"
             class="l-header__logo-image"
           />
@@ -109,99 +109,67 @@
         <div class="p-works__tag">
           <div class="p-works__tag-text"><p>スキルで制作物を絞り込む</p></div>
           <div class="p-works__tag-container">
-            <a href="" class="c-skill-tag c-skill-tag__color--html">HTML</a>
-            <a href="" class="c-skill-tag c-skill-tag__color--css">CSS</a>
-            <a href="" class="c-skill-tag c-skill-tag__color--jquery">jQuery</a>
-            <a href="" class="c-skill-tag c-skill-tag__color--wordpress">Wordpress</a>
-            <a href="" class="c-skill-tag c-skill-tag__color--figma">Figma</a>
+            <?php $terms = get_terms('skill'); ?>
+            <?php foreach($terms as $term): ?>
+            <a href="" data-type="<?php echo $term->slug; ?>" class="c-skill-tag c-skill-tag__color--<?php echo $term->slug; ?>"><?php echo $term->name ;?></a>
+              <?php endforeach; ?>
           </div>
         </div>
         <div class="p-works__cards">
-          <a class="p-works__card">
-            <div class="p-works__card-wrapper">
-              <div class="c-card">
-                <img
-                  src="../public/assets/img/card-daymaga.png"
-                  alt=""
-                  class="c-card__body-image"
-                />
-                <div class="c-card__modal">
-                  <p class="c-card__modal-text">詳しく見る</p>
-                </div>
-              </div>
-            </div>
-            <div class="p-works__card-description">
-              <p class="p-works__card-title">
-                【架空】 Web系企業のコーポレートサイト
-              </p>
-              <p class="p-works__card-caption">HTML/CSS/jQUery/Wordpress</p>
-              <p class="p-works__card-caption">制作時間：約２週間</p>
-            </div>
-          </a>
-          <a class="p-works__card">
-            <div class="p-works__card-wrapper">
-              <div class="c-card">
-                <img
-                  src="../public/assets/img/card-oha.png"
-                  alt=""
-                  class="c-card__body-image"
-                />
-                <div class="c-card__modal">
-                  <p class="c-card__modal-text">詳しく見る</p>
-                </div>
-              </div>
-            </div>
-            <div class="p-works__card-description">
-              <p class="p-works__card-title">【架空】スマホアプリOha!のLP</p>
-              <p class="p-works__card-caption">HTML/CSS/jQUery/Wordpress</p>
-              <p class="p-works__card-caption">制作時間：約20日</p>
+            <?php $args= array(
+              'post_type' =>'works',
+              'posts_per_page' => -1,
+            );
+            $all_query = new WP_Query($args); ?>
+            <?php if($all_query->have_posts()):?>
+              <?php while($all_query->have_posts()):?>
+                <?php $all_query->the_post(); ?>
+                <?php
+                  // 投稿に紐づく 'skill' タクソノミーのタームを取得
+                  $terms = get_the_terms(get_the_ID(), 'skill');
 
-            </div>
-          </a>
-          <a class="p-works__card">
-            <div class="p-works__card-wrapper">
-              <div class="c-card">
-                <img
-                  src="../public/assets/img/card-sobolon.png"
-                  alt=""
-                  class="c-card__body-image"
-                />
-                <div class="c-card__modal">
-                  <p class="c-card__modal-text">詳しく見る</p>
-                </div>
-              </div>
-            </div>
-            <div class="p-works__card-description">
-              <p class="p-works__card-title">アクセサリーブランドサイトのLP</p>
-              <p class="p-works__card-caption">HTML/CSS/jQUery</p>
-              <p class="p-works__card-caption">制作時間：約10日</p>
+                  if (!empty($terms) && !is_wp_error($terms)) {
+                      // タームのスラッグを配列に収集
+                      $term_slugs = array_map(function($term) {
+                          return $term->slug;
+                      }, $terms);
 
-            </div>
-          </a>
-          <a class="p-works__card">
-            <div class="p-works__card-wrapper">
-              <div class="c-card">
-                <img
-                  src="../public/assets/img/card-portfolio.png"
-                  alt=""
-                  class="c-card__body-image"
-                />
-                <div class="c-card__modal">
-                  <p class="c-card__modal-text">詳しく見る</p>
-                </div>
-              </div>
-            </div>
-            <div class="p-works__card-description">
-              <p class="p-works__card-title">ポートフォリオサイト</p>
-              <p class="p-works__card-caption">
-                HTML/CSS/jQUery/Wordpress/Figma
-              </p>
-              <p class="p-works__card-caption">制作時間：約20日</p>
-            </div>
-          </a>
+                      // スラッグをスペース区切りで結合
+                      $term_classes = implode(' ', $term_slugs);}?>
+                  <a href="<?php the_permalink(); ?>" data-slug="<?php echo $term_classes; ?>" class="p-works__card js-post__works">
+                    <div class="p-works__card-wrapper">
+                      <div class="c-card">
+                        <img
+                          src="<?php echo get_field('circle-image')['url']; ?>"
+                          alt=""
+                          class="c-card__body-image"
+                        />
+                        <div class="c-card__modal">
+                          <p class="c-card__modal-text">詳しく見る</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="p-works__card-description">
+                      <p class="p-works__card-title">
+                        【架空】 Web系企業のコーポレートサイト
+                      </p>
+                      <p class="p-works__card-caption">
+                          <?php $terms = get_the_terms(get_the_ID(), 'skill'); ?>
+                            <?php if (!empty($terms) && !is_wp_error($terms)) {
+                              $term_names = array_map(function($term) {
+                                  return $term->name;
+                              }, $terms);
+                              $term_names_string = implode(' / ', $term_names);
+                              echo '<p class="p-works__card-caption ">使用スキル:' . $term_names_string . '</p>';}?>
+                      </p>
+                      <p class="p-works__card-caption">制作時間:<?php echo get_field('time'); ?></p>
+                    </div>
+                  </a>
+                  <?php endwhile; ?>
+                <?php endif; ?>
         </div>
         <div class="p-works__button-wrapper">
-          <a href="" class="c-button"> トップページへ戻る </a>
+          <a href="<?php echo home_url(); ?>" class="c-button"> トップページへ戻る </a>
         </div>
       </div>
     </section>
@@ -216,7 +184,7 @@
               ご覧いただき、<wbr />ありがとうございました！
             </span>
             <a href="#" class="l-footer__logo">
-              <img src="../public/assets/img/logo.png" alt="" />
+              <img src="<?php echo get_template_directory_uri(); ?>/img/logo.png" alt="" />
             </a>
           </div>
           <div class="l-footer__copyright">
