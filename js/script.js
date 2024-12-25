@@ -1,3 +1,4 @@
+// スキルスワイパー
 const skills_swiper = new Swiper(".p-skills__swiper", {
   loop: false,
   spaceBetween: 25,
@@ -19,6 +20,52 @@ const skills_swiper = new Swiper(".p-skills__swiper", {
     nextEl: ".p-skills__swiper-button-next",
     prevEl: ".p-skills__swiper-button-prev",
   },
+});
+
+// mv切り替え
+document.addEventListener("DOMContentLoaded", function () {
+  const cards = document.querySelectorAll(".p-mv__card"); // 全ての投稿を取得
+  let currentIndex = 0; // 現在表示中の投稿のインデックス
+
+  function showNextCard() {
+    if(cards.length === 0) return;
+    // 現在の投稿を非表示
+    cards[currentIndex].style.display = "none";
+
+    // 次の投稿にインデックスを更新（最後に到達したら最初に戻る）
+    currentIndex = (currentIndex + 1) % cards.length;
+
+    // 次の投稿を表示
+    cards[currentIndex].style.display = "block";
+  }
+
+  // 最初の投稿を表示
+  if (cards.length > 0) {
+    cards[currentIndex].style.display = "block";
+  } else {
+    console.error("投稿が見つかりませんでした。: .p-mv__card");
+    return;
+
+  }
+
+  // 投稿の切り替えを開始
+  function startSlideshow() {
+    intervalId = setInterval(showNextCard, 3000); // 3秒ごとに切り替え
+  }
+
+  // 投稿の切り替えを停止
+  function stopSlideshow() {
+    clearInterval(intervalId);
+  }
+
+  // 各投稿にホバーイベントを追加
+  cards.forEach((card) => {
+    card.addEventListener("mouseover", stopSlideshow); // ホバー時に停止
+    card.addEventListener("mouseout", startSlideshow); // ホバー解除時に再開
+  });
+
+  // スライドショーを開始
+  startSlideshow();
 });
 
 // 自作ボタンクリックでスワイプ
@@ -95,20 +142,36 @@ window.addEventListener("load", function () {
   // フラグが 'true' でない場合（初回アクセス時またはフラグが削除された場合）
   // ローディング画面を表示
   const loadingElement = document.querySelector(".c-loading");
-  loadingElement.classList.add("c-loading__active");
+  if (loadingElement) {
+    loadingElement.classList.add("c-loading__active");
+  } else {
+    console.error("要素'c-loading'が見つかりませんでした。");
+  }
 
   // 2秒後にローディング画面を非表示にする
   setTimeout(function () {
     // ローディング画面を非表示にする
-    loadingElement.classList.remove("c-loading__active");
+    if (loadingElement) {
+      loadingElement.classList.remove("c-loading__active");
+    } else {
+      console.error("要素'c-loading'が見つかりませんでした。");
+    };
     // コンテンツ要素を表示
     const contentsElement = document.querySelector(".body-container.hidden");
+    if (contentsElement){
     contentsElement.classList.remove("hidden"); // hiddenクラスを取り除くことでコンテンツを表示
+    } else {
+      console.error("要素が見つかりませんでした。");
+    };
     // セッションストレージにフラグを保存
     sessionStorage.setItem("isFirstLoad", "true");
   }, 2000);
   setTimeout(function () {
+    if (loadingElement){
     loadingElement.style.display = "none"; // 非表示にする
+    } else {
+      console.error("要素が見つかりませんでした。");
+    }
   }, 2500);
 });
 
@@ -164,7 +227,7 @@ $(document).ready(function () {
     const type = $(this).data("type");
     $(".js-post__works").each(function () {
       const slug = $(this).data("slug");
-      const slugArray = slug.split(' ');
+      const slugArray = slug.split(" ");
 
       if (slugArray.includes(type)) {
         $(this).addClass("is-active");

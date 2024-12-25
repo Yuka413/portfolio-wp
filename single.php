@@ -39,7 +39,7 @@
     <!-- headerここから -->
     <header class="l-header">
       <div class="l-header__inner">
-        <a href="#" class="l-header__logo">
+        <a href="<?php echo home_url(''); ?>" class="l-header__logo">
           <img
             src="<?php echo get_template_directory_uri(); ?>/img/logo.png"
             alt="Yuka's Portfolio"
@@ -53,18 +53,18 @@
         <div class="l-header-drawer__content">
           <ul class="l-header-drawer__content-lists">
             <li class="l-header-drawer__content-list">
-              <a href="" class="l-header-drawer__content-link">Home</a>
-              <a href="" class="l-header-drawer__content-link-ja">ホーム</a>
+              <a href="<?php echo home_url(); ?>" class="l-header-drawer__content-link">Home</a>
+              <a href="<?php echo home_url(); ?>" class="l-header-drawer__content-link-ja">ホーム</a>
             </li>
             <li class="l-header-drawer__content-list">
-              <a href="" class="l-header-drawer__content-link">About me</a>
-              <a href="" class="l-header-drawer__content-link-ja"
+              <a href="<?php echo get_permalink(58); ?>" class="l-header-drawer__content-link">About me</a>
+              <a href="<?php echo get_permalink(58); ?>" class="l-header-drawer__content-link-ja"
                 >わたしについて</a
               >
             </li>
             <li class="l-header-drawer__content-list">
-              <a href="" class="l-header-drawer__content-link">Works</a>
-              <a href="" class="l-header-drawer__content-link-ja">制作実績</a>
+              <a href="<?php echo get_post_type_archive_link('works'); ?>" class="l-header-drawer__content-link">Works</a>
+              <a href="<?php echo get_post_type_archive_link('works'); ?>" class="l-header-drawer__content-link-ja">制作実績</a>
             </li>
           </ul>
         </div>
@@ -132,7 +132,7 @@
             <span class="l-footer__text">
               ご覧いただき、<wbr />ありがとうございました！
             </span>
-            <a href="#" class="l-footer__logo">
+            <a href="<?php echo home_url(''); ?>" class="l-footer__logo">
               <img src="<?php echo get_template_directory_uri(); ?>/img/logo.png" alt="" />
             </a>
           </div>

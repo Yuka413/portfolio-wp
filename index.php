@@ -68,18 +68,18 @@
             <div class="l-header-drawer__content">
               <ul class="l-header-drawer__content-lists">
                 <li class="l-header-drawer__content-list">
-                  <a href="" class="l-header-drawer__content-link">Home</a>
-                  <a href="" class="l-header-drawer__content-link-ja">ホーム</a>
+                  <a href="<?php echo home_url(); ?>" class="l-header-drawer__content-link">Home</a>
+                  <a href="<?php echo home_url(); ?>" class="l-header-drawer__content-link-ja">ホーム</a>
                 </li>
                 <li class="l-header-drawer__content-list">
-                  <a href="" class="l-header-drawer__content-link">About me</a>
-                  <a href="" class="l-header-drawer__content-link-ja"
+                  <a href="<?php echo get_permalink(58); ?>" class="l-header-drawer__content-link">About me</a>
+                  <a href="<?php echo get_permalink(58); ?>" class="l-header-drawer__content-link-ja"
                     >わたしについて</a
                   >
                 </li>
                 <li class="l-header-drawer__content-list">
-                  <a href="" class="l-header-drawer__content-link">Works</a>
-                  <a href="" class="l-header-drawer__content-link-ja"
+                  <a href="<?php echo get_post_type_archive_link('works'); ?>" class="l-header-drawer__content-link">Works</a>
+                  <a href="<?php echo get_post_type_archive_link('works'); ?>" class="l-header-drawer__content-link-ja"
                     >制作実績</a
                   >
                 </li>
@@ -99,9 +99,20 @@
             </div>
             <div class="p-mv__work">
               <div class="p-mv__work-card">
-                <a class="c-card p-mv__card">
+                
+                <?php $args = array(
+                  'post_type' => 'works',
+                  'posts_per_page' => -1,
+                );
+                $all_query = new WP_query($args); ?>
+                <?php if ($all_query->have_posts()):?>
+                  <?php while($all_query -> have_posts()): ?>
+                    <?php $all_query->the_post(); ?>
+                    <?php $circle_image = get_field('circle-image'); ?>
+                <a  href="<?php echo get_post_permalink(); ?>"class="p-works__card p-mv__card">
+                <div class="c-card">
                   <img
-                    src="<?php echo get_template_directory_uri(); ?>/img/card-daymaga.png"
+                    src="<?php echo $circle_image['url']; ?>"
                     alt=""
                     class="c-card__body-image"
                   />
@@ -110,7 +121,11 @@
                       詳しく見る
                     </p>
                   </div>
+                  </div>
                 </a>
+                <?php endwhile; ?>
+                <?php wp_reset_postdata(); ?>
+                <?php endif; ?>
                 <a href="<?php echo get_post_type_archive_link('works'); ?>" class="c-button">
                   <p class="c-button__text">制作実績をすべて見る</p>
                 </a>
@@ -150,7 +165,7 @@
             </div>
           </div>
           <div class="p-about__body-button">
-            <a href="" class="c-button">
+            <a href="<?php echo get_permalink(58); ?>" class="c-button">
               <p class="c-button__text">詳しく見る</p>
             </a>
           </div>
@@ -320,9 +335,9 @@
               <span class="l-footer__text">
                 ご覧いただき、<wbr />ありがとうございました！
               </span>
-              <div class="l-footer__logo">
+              <a href="<?php echo home_url(''); ?>" class="l-footer__logo">
                 <img src="<?php echo get_template_directory_uri(); ?>/img/logo.png" alt="" />
-              </div>
+              </a>
             </div>
             <div class="l-footer__copyright">
               <small class="l-footer__copyright-text"

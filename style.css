@@ -464,6 +464,7 @@ body {
 }
 
 .c-strength-content__mark {
+	white-space: nowrap;
 	background: linear-gradient(transparent 65%, rgba(173, 228, 191, 0.48) 65%);
 }
 
@@ -663,6 +664,7 @@ a.c-skill-tag:hover {
 }
 
 .p-mv__card {
+	display: none;
 	height: 226px;
 	width: 240px;
 }
@@ -670,6 +672,8 @@ a.c-skill-tag:hover {
 .p-mv__card:hover .p-mv-card__modal {
 	top: 0;
 }
+
+
 
 .p-mv__card:hover .c-card__body-image {
 	margin-top: 30px;
@@ -1050,7 +1054,7 @@ a.c-skill-tag:hover {
 }
 
 .p-visions__goal-text-sub {
-	font-size: 16px;
+	font-size: 14px;
 	text-align: center;
 }
 
@@ -1144,6 +1148,12 @@ a.c-skill-tag:hover {
 .u-title-sub__padding {
 	padding-top: 5px;
 }
+@media screen and (max-width: 360px) {
+	.p-mv__text-main{
+		font-size: 29px;
+	}
+}
+
 
 @media (scripting: none) {
 
@@ -1394,7 +1404,7 @@ a.c-skill-tag:hover {
 	padding-left: 25px;
 	padding-right: 0;
 	text-align: left;
-	width: 350px;
+	width: 351px;
 }
 
 }
