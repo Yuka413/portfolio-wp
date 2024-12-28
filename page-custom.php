@@ -244,11 +244,21 @@
           </h1>
         </div>
         <div class="p-works__cards">
-          <a class="p-works__card">
+          <?php $args = array(
+            'post_type' => 'works',
+            'post__in' => array(41, 43, 40),
+            'orderby' => 'post__in',
+          );
+          $works_query = new WP_query($args); ?>
+          <?php if($works_query->have_posts()): ?>
+            <?php while($works_query->have_posts()): ?>
+              <?php $works_query->the_post(); ?>
+          <a href="<?php the_permalink(); ?>" class="p-works__card">
             <div class="p-works__card-wrapper">
               <div class="c-card">
+                <?php $circle_image = get_field('circle-image'); ?>
                 <img
-                  src="<?php echo get_template_directory_uri(); ?>/img/card-daymaga.png"
+                  src="<?php echo $circle_image['url']; ?>"
                   alt=""
                   class="c-card__body-image"
                 />
@@ -259,50 +269,23 @@
             </div>
             <div class="p-works__card-description">
               <p class="p-works__card-title">
-                【架空】 Web系企業のコーポレートサイト
+                <?php the_title(); ?>
               </p>
-              <p class="p-works__card-caption">HTML/CSS/jQUery/Wordpress</p>
-              <p class="p-works__card-caption">制作時間：約２週間</p>
+              <?php $terms = get_the_terms(get_the_ID(), 'skill'); ?>
+                  <?php if (!empty($terms) && !is_wp_error($terms)) {
+                    $term_names = array_map(function($term) {
+                        return $term->name;
+                    }, $terms);
+                    $term_names_string = implode(' / ', $term_names);
+                    echo '<p class="p-works__card-caption">' . $term_names_string . '</p>';
+                }
+                ?>
+              <p class="p-works__card-caption">制作時間：<?php echo get_field('time'); ?></p>
             </div>
           </a>
-          <a class="p-works__card">
-            <div class="p-works__card-wrapper">
-              <div class="c-card">
-                <img
-                  src="<?php echo get_template_directory_uri(); ?>/img/card-oha.png"
-                  alt=""
-                  class="c-card__body-image"
-                />
-                <div class="c-card__modal">
-                  <p class="c-card__modal-text">詳しく見る</p>
-                </div>
-              </div>
-            </div>
-            <div class="p-works__card-description">
-              <p class="p-works__card-title">【架空】スマホアプリOha!のLP</p>
-              <p class="p-works__card-caption">HTML/CSS/jQUery/Wordpress</p>
-              <p class="p-works__card-caption">制作時間：約20日</p>
-            </div>
-          </a>
-          <a class="p-works__card">
-            <div class="p-works__card-wrapper">
-              <div class="c-card">
-                <img
-                  src="<?php echo get_template_directory_uri(); ?>/img/card-portfolio.png"
-                  alt=""
-                  class="c-card__body-image"
-                />
-                <div class="c-card__modal">
-                  <p class="c-card__modal-text">詳しく見る</p>
-                </div>
-              </div>
-            </div>
-            <div class="p-works__card-description">
-              <p class="p-works__card-title">ポートフォリオサイト</p>
-              <p class="p-works__card-caption">HTML/CSS/jQUery/Wordpress/Figma</p>
-              <p class="p-works__card-caption">制作時間：約20日</p>
-            </div>
-          </a>
+          <?php endwhile; ?>
+          <?php wp_reset_postdata(); ?>
+          <?php endif; ?>
         </div>
         <div class="p-works__button-wrapper">
           <a href="<?php echo get_post_type_archive_link('works'); ?>" class="c-button"> すべて見る </a>
