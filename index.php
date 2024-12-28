@@ -101,7 +101,7 @@
           <div class="p-mv__inner">
             <div class="p-mv__text-container">
               <p class="p-mv__text-main js-glowAnime">あなたの幸せが、<br />私の原動力に。</p>
-              <p class="p-mv__text-sab">心に響くサイトを一緒に作り上げます</p>
+              <p class="p-mv__text-sab">利用者に楽しい時間を提供できる<br />フロントエンドエンジニアを目指して<br />転職活動中です</p>
             </div>
             <div class="p-mv__work">
               <div class="p-mv__work-card">
