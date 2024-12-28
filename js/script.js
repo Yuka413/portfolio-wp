@@ -28,7 +28,7 @@ document.addEventListener("DOMContentLoaded", function () {
   let currentIndex = 0; // 現在表示中の投稿のインデックス
 
   function showNextCard() {
-    if(cards.length === 0) return;
+    if (cards.length === 0) return;
     // 現在の投稿を非表示
     cards[currentIndex].style.display = "none";
 
@@ -45,12 +45,11 @@ document.addEventListener("DOMContentLoaded", function () {
   } else {
     console.error("投稿が見つかりませんでした。: .p-mv__card");
     return;
-
   }
 
   // 投稿の切り替えを開始
   function startSlideshow() {
-    intervalId = setInterval(showNextCard, 3000); // 3秒ごとに切り替え
+    intervalId = setInterval(showNextCard, 4000); // 3秒ごとに切り替え
   }
 
   // 投稿の切り替えを停止
@@ -132,48 +131,23 @@ inViewItems.forEach(function (inViewItem) {
   intersectionObserver.observe(inViewItem);
 });
 
-// ローディング
+// // ローディング画面
+const sessionKey = "accesed";
+const sessionValue = true; // Boolean型
 
-// セッションストレージからフラグを取得
-const isFirstLoad = sessionStorage.getItem("isFirstLoad");
-
-// ページの読み込みが完了したときに実行される関数
-window.addEventListener("load", function () {
-  // フラグが 'true' でない場合（初回アクセス時またはフラグが削除された場合）
-  // ローディング画面を表示
-  const loadingElement = document.querySelector(".c-loading");
-  if (loadingElement) {
-    loadingElement.classList.add("c-loading__active");
-  } else {
-    console.error("要素'c-loading'が見つかりませんでした。");
-  }
-
-  // 2秒後にローディング画面を非表示にする
+if (!sessionStorage.getItem(sessionKey)) {
+  // 1回だけ実行させたい処理を書く（今回はローディングの処理）
   setTimeout(function () {
-    // ローディング画面を非表示にする
-    if (loadingElement) {
-      loadingElement.classList.remove("c-loading__active");
-    } else {
-      console.error("要素'c-loading'が見つかりませんでした。");
-    };
-    // コンテンツ要素を表示
-    const contentsElement = document.querySelector(".body-container.hidden");
-    if (contentsElement){
-    contentsElement.classList.remove("hidden"); // hiddenクラスを取り除くことでコンテンツを表示
-    } else {
-      console.error("要素が見つかりませんでした。");
-    };
-    // セッションストレージにフラグを保存
-    sessionStorage.setItem("isFirstLoad", "true");
-  }, 2000);
-  setTimeout(function () {
-    if (loadingElement){
-    loadingElement.style.display = "none"; // 非表示にする
-    } else {
-      console.error("要素が見つかりませんでした。");
-    }
-  }, 2500);
-});
+    $("#js-loading").fadeOut();
+  }, 1000);
+
+  // sessionStorageにBoolean値を文字列として保存
+  sessionStorage.setItem(sessionKey, JSON.stringify(sessionValue));
+} else {
+  // sessionKey が既に存在する場合は、ローディングを即座に非表示
+  $("#js-loading").hide();
+  GlowAnimeControl();
+}
 
 // メインタイトルを光らせて出現
 function GlowAnimeControl() {
@@ -188,16 +162,19 @@ function GlowAnimeControl() {
     }
   });
 }
+const sessionKeyMv = "glowAnimeShown";
+
 $(window).scroll(function () {
   GlowAnimeControl();
 });
 
 $(window).on("load", function () {
+  const isFirstTime = !sessionStorage.getItem(sessionKeyMv);
   var element = $(".js-glowAnime");
   element.each(function () {
     var text = $(this).html(); // HTMLとして取得する
     var textbox = "";
-    var delay = 0.1; // アニメーションの初期遅延
+    var delay = 0; // アニメーションの初期遅延
 
     text.split(/(<br\s*\/?>|.)/).forEach(function (t, i) {
       if (t === "") return; // 空文字はスキップ
@@ -216,7 +193,15 @@ $(window).on("load", function () {
     $(this).html(textbox);
   });
 
-  GlowAnimeControl();
+  if(isFirstTime){
+    setTimeout(function(){
+      GlowAnimeControl();
+      sessionStorage.setItem(sessionKeyMv, true);
+    }, 1000); 
+  } else {
+    GlowAnimeControl();
+  }
+
 });
 
 // skillごとに投稿表示

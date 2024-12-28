@@ -36,6 +36,7 @@
     <?php wp_head(); ?>
   </head>
   <body>
+
     <!-- headerここから -->
     <header class="l-header">
       <div class="l-header__inner">
@@ -86,7 +87,7 @@
             <tbody>
               <tr>
                 <th>サイトURL</th>
-                <td><a href="" class="p-site__url">https:~~~~</a></td>
+                <td><a target="_blank" href="<?php echo get_field('url'); ?>" class="p-site__url"><?php echo get_field('url'); ?></a></td>
               </tr>
               <tr>
                 <th>使用スキル</th>

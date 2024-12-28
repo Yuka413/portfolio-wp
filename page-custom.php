@@ -1,3 +1,9 @@
+<?php 
+/**
+ *Template Name: Aboutカスタムページ
+ */
+?>
+
 <!DOCTYPE html>
 <html lang="ja">
   <head>
@@ -17,7 +23,7 @@
     <!-- favicon -->
     <link
       rel="shortcut icon"
-      href="../public/assets/img/favicon.png"
+      href="<?php echo get_template_directory_uri(); ?>/img/favicon.png"
       type="image/x-icon"
     />
 
@@ -33,16 +39,16 @@
       href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
     />
 
-    <!-- css -->
-    <link rel="stylesheet" href="../public/assets/css/style.css" />
+  <?php wp_head(); ?>
   </head>
   <body>
+
     <!-- headerここから -->
     <header class="l-header">
       <div class="l-header__inner">
-        <a href="#" class="l-header__logo">
+        <a href="<?php echo home_url(''); ?>" class="l-header__logo">
           <img
-            src="../public/assets/img/logo.png"
+            src="<?php echo get_template_directory_uri(); ?>/img/logo.png"
             alt="Yuka's Portfolio"
             class="l-header__logo-image"
           />
@@ -54,18 +60,18 @@
         <div class="l-header-drawer__content">
           <ul class="l-header-drawer__content-lists">
             <li class="l-header-drawer__content-list">
-              <a href="" class="l-header-drawer__content-link">Home</a>
-              <a href="" class="l-header-drawer__content-link-ja">ホーム</a>
+              <a href="<?php echo home_url(); ?>" class="l-header-drawer__content-link">Home</a>
+              <a href="<?php echo home_url(); ?>" class="l-header-drawer__content-link-ja">ホーム</a>
             </li>
             <li class="l-header-drawer__content-list">
-              <a href="" class="l-header-drawer__content-link">About me</a>
-              <a href="" class="l-header-drawer__content-link-ja"
+              <a href="<?php echo get_permalink(58); ?>" class="l-header-drawer__content-link">About me</a>
+              <a href="<?php echo get_permalink(58); ?>" class="l-header-drawer__content-link-ja"
                 >わたしについて</a
               >
             </li>
             <li class="l-header-drawer__content-list">
-              <a href="" class="l-header-drawer__content-link">Works</a>
-              <a href="" class="l-header-drawer__content-link-ja">制作実績</a>
+              <a href="<?php echo get_post_type_archive_link('works'); ?>" class="l-header-drawer__content-link">Works</a>
+              <a href="<?php echo get_post_type_archive_link('works'); ?>" class="l-header-drawer__content-link-ja">制作実績</a>
             </li>
           </ul>
         </div>
@@ -86,7 +92,7 @@
         </div>
         <div class="p-about__body">
           <div class="p-about__image">
-            <img src="../public/assets/img/about-me.png" alt="" />
+            <img src="<?php echo get_template_directory_uri(); ?>/img/about-me.png" alt="" />
           </div>
           <div class="p-about__content">
             <div class="p-about__content-top">
@@ -132,7 +138,7 @@
                 >
               </h2>
               <p class="c-strength-content__body">
-                人のために行動することを大切にしています。相手の気持ちやニーズを考えながらサポートすることで、周囲から信頼を得ることができました。いつでも余裕を持った行動をすることで、頼られた時にすぐ動けるようにしています。
+                人のために行動することを大切にしています。相手の気持ちやニーズを考えながらサポートすることで、「大内さんがいる日は安心する」と言って頂けるまでに周囲から信頼を得ることができました。いつでも余裕を持った行動をすることで、頼られた時にすぐ動けるようにしています。
               </p>
             </div>
           </li>
@@ -149,7 +155,7 @@
                 >
               </h2>
               <p class="c-strength-content__body">
-                仕事終わりに3〜４時間、休日は8時間の勉強を2024年8月から毎日続けています。途中で諦めることなく、目標を達成するために行動し続けられる継続力は私の最大の強みです。成長した自分が必ず未来にいると思うと、何よりワクワクします。
+                仕事終わりに3〜4時間、休日は8時間の勉強を2024年8月から続けています。途中で諦めることなく、目標を達成するために行動し続けられる継続力は私の最大の強みです。成長した自分が必ず未来にいると思うと、何よりワクワクします。
               </p>
             </div>
           </li>
@@ -185,17 +191,17 @@
           </h1>
         </div>
         <div class="p-visions__goal">
-          <div class="p-visions__goal-text-main">最終的な目標</div>
+          <div class="p-visions__goal-text-main">目標</div>
           <div class="p-visions__goal-text-sub">
-            UI/UX設計を意識し、ずっと見ていられるような<br
+            UXを意識し、<br />利用者に楽しい時間を提供できる<br
               class="u-sp__hidden--vision"
-            />楽しいサイトが作れるフロントエンドエンジニアになる
+            />フロントエンドエンジニアになる
           </div>
         </div>
         <div class="p-visions__container">
           <div class="c-timeline p-visions__timeline">
             <div class="c-timeline__wrapper">
-              <div class="c-timeline__time">2025</div>
+              <div class="c-timeline__time">1年後</div>
               <div class="c-timeline__content">
                 <div class="c-timeline__content-text">
                   コーダーとしてweb制作会社に転職する。
@@ -205,20 +211,20 @@
           </div>
           <div class="c-timeline p-visions__timeline">
             <div class="c-timeline__wrapper c-timeline__wrapper--reverse">
-              <div class="c-timeline__time--reverse">2025</div>
+              <div class="c-timeline__time--reverse">2年後</div>
               <div class="c-timeline__content c-timeline__content--reverse">
                 <div class="c-timeline__content-text">
-                  コーダーとしてweb制作会社に転職する。コーダーとしてweb制作会社に転職する。
+                  JavaScript, phpの勉強を進め、デザインの雰囲気にあった動きのあるサイトを作れるようになる。
                 </div>
               </div>
             </div>
           </div>
           <div class="c-timeline p-visions__timeline">
             <div class="c-timeline__wrapper">
-              <div class="c-timeline__time">2025</div>
+              <div class="c-timeline__time">3年後</div>
               <div class="c-timeline__content">
                 <div class="c-timeline__content-text">
-                  コーダーとしてweb制作会社に転職する。コーダーとしてweb制作会社に転職する。コーダーとしてweb制作会社に転職する。
+                  UI/UX設計の知識やスキルを身に付け、ユーザーを意識したサイト作成ができるようになる。
                 </div>
               </div>
             </div>
@@ -242,7 +248,7 @@
             <div class="p-works__card-wrapper">
               <div class="c-card">
                 <img
-                  src="../public/assets/img/card-daymaga.png"
+                  src="<?php echo get_template_directory_uri(); ?>/img/card-daymaga.png"
                   alt=""
                   class="c-card__body-image"
                 />
@@ -263,7 +269,7 @@
             <div class="p-works__card-wrapper">
               <div class="c-card">
                 <img
-                  src="../public/assets/img/card-oha.png"
+                  src="<?php echo get_template_directory_uri(); ?>/img/card-oha.png"
                   alt=""
                   class="c-card__body-image"
                 />
@@ -282,7 +288,7 @@
             <div class="p-works__card-wrapper">
               <div class="c-card">
                 <img
-                  src="../public/assets/img/card-portfolio.png"
+                  src="<?php echo get_template_directory_uri(); ?>/img/card-portfolio.png"
                   alt=""
                   class="c-card__body-image"
                 />
@@ -299,10 +305,43 @@
           </a>
         </div>
         <div class="p-works__button-wrapper">
-          <a href="" class="c-button"> すべて見る </a>
+          <a href="<?php echo get_post_type_archive_link('works'); ?>" class="c-button"> すべて見る </a>
         </div>
       </div>
     </section>
     <!-- worksここまで -->
 
-<?php get_footer(); ?>
+     <!-- footerここから -->
+     <div class="c-background__wave c-background__wave--reverse">
+        <footer class="l-footer">
+          <div class="l-footer__inner u-inner">
+            <div class="l-footer__contents">
+              <span class="l-footer__text">
+                ご覧いただき、<wbr />ありがとうございました！
+              </span>
+              <a href="<?php echo home_url(''); ?>" class="l-footer__logo">
+                <img src="<?php echo get_template_directory_uri(); ?>/img/logo.png" alt="" />
+              </a>
+            </div>
+            <div class="l-footer__copyright">
+              <small class="l-footer__copyright-text"
+                >&copy;2024 Yuka's Portfolio</small
+              >
+              <a
+                href="https://x.com/__yukke48"
+                class="c-sns-x c-sns-x__small"
+                target="_blank"
+                >𝕏
+              </a>
+            </div>
+          </div>
+        </footer>
+      </div>
+    </div>
+    <!-- footerここまで -->
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <?php wp_footer();?>
+  </body>
+</html>

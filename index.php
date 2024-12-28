@@ -4,7 +4,12 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="robots" content="noindex" />
-    <meta name="description" content="大内優果のポートフォリオサイトです。">
+    <meta name="description" content="大内優果のポートフォリオサイトです">
+    <meta property="og:title" content="ページのタイトル">
+    <meta property="og:url" content="https://yukke-coder.com">
+    <meta property="og:image" content="<?php echo get_template_directory_uri(); ?>/img/ogp.png">
+    <meta property="og:site_name" content="大内優果のポートフォリオサイトです">
+    <meta property="og:description" content="自作のポートフォリオサイトや架空のサイトのコーディング実績を掲載しています">
     <title>Yuka's Portfolio</title>
 
     <!-- google fonts -->
@@ -38,19 +43,20 @@
   </head>
   <body>
     <!-- loadingここから -->
-    <div class="c-loading">
-      <div class="c-loading__circle"></div>
-      <div class="c-loading__circle"></div>
-      <div class="c-loading__circle"></div>
-      <div class="c-loading__shadow"></div>
-      <div class="c-loading__shadow"></div>
-      <div class="c-loading__shadow"></div>
+    <div id="js-loading" class="c-loading">
+      <div class="c-loading__container">
+        <div class="c-loading__circle"></div>
+        <div class="c-loading__circle"></div>
+        <div class="c-loading__circle"></div>
+        <div class="c-loading__shadow"></div>
+        <div class="c-loading__shadow"></div>
+        <div class="c-loading__shadow"></div>
       <p class="c-loading-text">loading...</p>
+      </div>
     </div>
     <!-- loadingここまで -->
 
     <!-- headerここから -->
-    <div class="body-container hidden">
       <div class="c-background__wave">
         <header class="l-header">
           <div class="l-header__inner">
@@ -126,7 +132,7 @@
                 <?php endwhile; ?>
                 <?php wp_reset_postdata(); ?>
                 <?php endif; ?>
-                <a href="<?php echo get_post_type_archive_link('works'); ?>" class="c-button">
+                <a href="<?php echo get_post_type_archive_link('works'); ?>" class="c-button p-mv-button">
                   <p class="c-button__text">制作実績をすべて見る</p>
                 </a>
               </div>
@@ -276,6 +282,30 @@
               <span class="c-title__sub">制作物</span>
             </h2>
           </div>
+          <div class="p-works__overview">
+          <p class="p-works__overview-text">
+            2024年8月よりオンラインスクールでの学習を始め、<br
+              class="u-sp__hidden"
+            />10月中に基本カリキュラムを終えました。
+          </p>
+          <div class="p-works__overview-monthly">
+            <table class="p-works__overview-table">
+              <caption class="p-works__overview-table-title">
+                <p>学習進捗</p>
+              </caption>
+              <tbody>
+                <tr>
+                  <th>11月</th>
+                  <td>ポートフォリオ構成決定、サイト1本コーディング・WP化</td>
+                </tr>
+                <tr>
+                  <th>12月</th>
+                  <td>ポートフォリオコーディング・WP化</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
           <div class="p-works__cards">
                 <?php $args = array(
                     'post__in' => array(41, 43, 40),
@@ -353,7 +383,6 @@
           </div>
         </footer>
       </div>
-    </div>
     <!-- footerここまで -->
 
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
