@@ -158,12 +158,20 @@
             <div class="p-about__content">
               <div class="p-about__content-top">
                 <div class="p-about__content-name">大内 優果</div>
+                <div class="c-link">
                 <a
                   href="https://x.com/__yukke48"
                   class="c-sns-x"
                   target="_blank"
                   >𝕏</a
                 >
+                <a
+                  href="https://github.com/Yuka413"
+                  class="c-github"
+                  target="_blank"
+                  ><i class="fa-brands fa-github c-github__icon"></i></a
+                >
+                </div>
               </div>
               <div class="p-about__content-text">
                 名城大学農学部卒業後、ホームセンターで働いています。業務の一環でLINEチラシを作る中で、webの仕事の楽しさに触れました。2024年8月よりスクールでweb制作を学び、現在は転職活動をしています。
@@ -357,36 +365,6 @@
       </section>
       <!-- Worksここまで -->
 
-     <!-- footerここから -->
-     <div class="c-background__wave c-background__wave--reverse">
-        <footer class="l-footer">
-          <div class="l-footer__inner u-inner">
-            <div class="l-footer__contents">
-              <span class="l-footer__text">
-                ご覧いただき、<wbr />ありがとうございました！
-              </span>
-              <a href="<?php echo home_url(''); ?>" class="l-footer__logo">
-                <img src="<?php echo get_template_directory_uri(); ?>/img/logo.png" alt="" />
-              </a>
-            </div>
-            <div class="l-footer__copyright">
-              <small class="l-footer__copyright-text"
-                >&copy;2024 Yuka's Portfolio</small
-              >
-              <a
-                href="https://x.com/__yukke48"
-                class="c-sns-x c-sns-x__small"
-                target="_blank"
-                >𝕏
-              </a>
-            </div>
-          </div>
-        </footer>
-      </div>
+    <!-- footerここから -->
+    <?php get_footer(); ?>
     <!-- footerここまで -->
-
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <?php wp_footer();?>
-  </body>
-</html>

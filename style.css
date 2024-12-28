@@ -415,7 +415,7 @@ body {
 }
 
 .c-sns-x {
-  font-size: 28px;
+  font-size: 25px;
   position: relative;
   transition: all 0.2s ease;
 }
@@ -438,11 +438,41 @@ body {
 
 .c-sns-x__small {
   font-size: 18px;
+  display: flex;
+  align-items: center;
 }
 
 .c-sns-x__small::after {
   height: 25px;
   width: 25px;
+}
+
+
+
+.c-link {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+
+.c-github {
+  display: flex;
+  align-items: center;
+  transition: color 0.3s ease;
+}
+
+
+
+.c-github:hover {
+  color: #73be8c;
+}
+
+.c-github__icon {
+  font-size: 2.1em;
+}
+
+.c-github__icon--small{
+  font-size: 1.7em;
 }
 
 .c-strength-content {
@@ -745,6 +775,7 @@ a.c-skill-tag:hover {
   flex-direction: row;
   gap: 50px;
   padding-top: 40px;
+  position: relative;
 }
 
 .p-about__content-name {
@@ -1134,7 +1165,7 @@ a.c-skill-tag:hover {
   color: #1111cc;
   transition: opacity 0.3s ease;
   text-decoration: underline;
-  text-decoration-color:#1111cc ;
+  text-decoration-color: #1111cc;
 }
 
 .p-site__url:hover {
@@ -1557,7 +1588,7 @@ a.c-skill-tag:hover {
   }
 }
 
-@keyframes fadeIn{
+@keyframes fadeIn {
   0% {
     opacity: 0;
   }
