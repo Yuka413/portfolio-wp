@@ -137,39 +137,24 @@ const sessionValue = true; // Boolean型
 
 if (!sessionStorage.getItem(sessionKey)) {
   // 1回だけ実行させたい処理を書く（今回はローディングの処理）
-  setTimeout(function () {
-    $("#js-loading").fadeOut();
-  }, 1000);
+  $(window).on("load", function () {
+    setTimeout(function () {
+      $("#js-loading").fadeOut();
+      splitText();
+      GlowAnimeControl();
+    }, 1000);
+  });
 
   // sessionStorageにBoolean値を文字列として保存
   sessionStorage.setItem(sessionKey, JSON.stringify(sessionValue));
 } else {
   // sessionKey が既に存在する場合は、ローディングを即座に非表示
   $("#js-loading").hide();
+  splitText();
   GlowAnimeControl();
 }
 
-// メインタイトルを光らせて出現
-function GlowAnimeControl() {
-  $(".js-glowAnime").each(function () {
-    var elemPos = $(this).offset().top - 50;
-    var scroll = $(window).scrollTop();
-    var windowHeight = $(window).height();
-    if (scroll >= elemPos - windowHeight) {
-      $(this).addClass("glow");
-    } else {
-      $(this).removeClass("glow");
-    }
-  });
-}
-const sessionKeyMv = "glowAnimeShown";
-
-$(window).scroll(function () {
-  GlowAnimeControl();
-});
-
-$(window).on("load", function () {
-  const isFirstTime = !sessionStorage.getItem(sessionKeyMv);
+function splitText() {
   var element = $(".js-glowAnime");
   element.each(function () {
     var text = $(this).html(); // HTMLとして取得する
@@ -192,17 +177,27 @@ $(window).on("load", function () {
 
     $(this).html(textbox);
   });
+}
 
-  if(isFirstTime){
-    setTimeout(function(){
-      GlowAnimeControl();
-      sessionStorage.setItem(sessionKeyMv, true);
-    }, 1000); 
-  } else {
-    GlowAnimeControl();
-  }
+// メインタイトルを光らせて出現
+function GlowAnimeControl() {
+  $(".js-glowAnime").each(function () {
+    var elemPos = $(this).offset().top - 50;
+    var scroll = $(window).scrollTop();
+    var windowHeight = $(window).height();
+    if (scroll >= elemPos - windowHeight) {
+      $(this).addClass("glow");
+    } else {
+      $(this).removeClass("glow");
+    }
+  });
+}
+const sessionKeyMv = "glowAnimeShown";
 
+$(window).scroll(function () {
+  GlowAnimeControl();
 });
+
 
 // skillごとに投稿表示
 $(document).ready(function () {
