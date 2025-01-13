@@ -95,14 +95,22 @@
                 <p>学習進捗</p>
               </caption>
               <tbody>
+                <?php $args = array (
+                    'post_type' => 'progress',
+                    'order' => 'ASC',
+                    'orderby' => 'date',
+                  );
+                $progress = new WP_Query($args);?>
+                <?php if($progress -> have_posts()): ?>
+                  <?php while($progress -> have_posts()): ?>
+                    <?php $progress->the_post(); ?>
                 <tr>
-                  <th>11月</th>
-                  <td>ポートフォリオ構成決定、サイト1本コーディング・WP化</td>
+                  <th><?php the_title(); ?></th>
+                  <td><?php the_excerpt();?></td>
                 </tr>
-                <tr>
-                  <th>12月</th>
-                  <td>ポートフォリオコーディング・WP化</td>
-                </tr>
+                  <?php endwhile;?>
+                  <?php wp_reset_postdata(); ?>
+                  <?php endif; ?>
               </tbody>
             </table>
           </div>
