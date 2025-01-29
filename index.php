@@ -10,7 +10,6 @@
     <meta property="og:image" content="<?php echo get_template_directory_uri(); ?>/img/ogp.png">
     <meta property="og:site_name" content="大内優果のポートフォリオサイトです">
     <meta property="og:description" content="自作のポートフォリオサイトや架空のサイトのコーディング実績を掲載しています">
-    <title>Yuka's Portfolio</title>
 
     <!-- google fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -302,29 +301,26 @@
                 <p>学習進捗</p>
               </caption>
               <tbody>
-              <?php $args = array (
-                    'post_type' => 'progress',
-                    'order' => 'ASC',
-                    'orderby' => 'date',
-                  );
-                $progress = new WP_Query($args);?>
-                <?php if($progress -> have_posts()): ?>
-                  <?php while($progress -> have_posts()): ?>
-                    <?php $progress->the_post(); ?>
-                <tr>
-                  <th><?php the_title(); ?></th>
-                  <td><?php the_excerpt();?></td>
+              <tr>
+                  <th>11月</th>
+                  <td>ポートフォリオ構成決定、サイト1本コーディング</td>
                 </tr>
-                  <?php endwhile;?>
-                  <?php wp_reset_postdata(); ?>
-                  <?php endif; ?>
+                <tr>
+                  <th>12月</th>
+                  <td>ポートフォリオコーディング・WP化</td>
+                </tr>
+                <tr>
+                  <th>1月</th>
+                  <td>LP　3本コーディング</td>
+                </tr>
               </tbody>
+
             </table>
           </div>
         </div>
           <div class="p-works__cards">
                 <?php $args = array(
-                    'post__in' => array(41, 66, 40),
+                    'post__in' => array(41, 66, 75),
                     'post_type' => 'works',
                     'posts_per_page' => 3,
                     'orderby' =>'post__in',
